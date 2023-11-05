@@ -125,8 +125,7 @@ int main() {
                         if (line.empty()) {
                             currentEntry = LogEntry();
                         } else {
-                            regex timestampRegex(
-                                    "[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1]) (2[0-3]|[01][0-9]):[0-5][0-9]:[0-5][0-9],[0-9]{3}");
+                            regex timestampRegex("[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1]) (2[0-3]|[01][0-9]):[0-5][0-9]:[0-5][0-9],[0-9]{3}");
                             if (regex_search(line, timestampRegex)) {
                                 currentEntry.timestamp = line.substr(0, 19);
                                 if (line.find("[") != string::npos) {
@@ -134,13 +133,11 @@ int main() {
                                     size_t severityPosE = line.find(" ", severityPosB + 1);
                                     size_t libraryPosB = line.find("[", severityPosE) + 1;
                                     size_t libraryPosE = line.find("]", severityPosE);
-                                    currentEntry.severity = line.substr(severityPosB + 1,
-                                                                        severityPosE - severityPosB - 1);
+                                    currentEntry.severity = line.substr(severityPosB + 1,severityPosE - severityPosB - 1);
                                     currentEntry.library = line.substr(libraryPosB, libraryPosE - libraryPosB);
                                     severityCount[currentEntry.severity]++;
                                     libraryCount[currentEntry.library]++;
                                     logs.push_back(currentEntry);
-
                                 }
                             }
                         }
