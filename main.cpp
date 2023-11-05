@@ -72,9 +72,31 @@ void CalculateTimeDiffrence(const vector<LogEntry>& logs)
     time_t time2 = mktime(&tm2);
 
     int timeDifference = difftime(time2, time1);
-    int daysDifference = timeDifference / (60 * 60 * 24);
+    timeDifference = abs(timeDifference);
 
-    cout << "Roznica czasu miedzy pierwszym a ostatnim logiem: " << abs(daysDifference) << " dni" << endl;
+    int days = timeDifference / (60 * 60 * 24);
+    timeDifference -= days * 60 * 60 * 24;
+
+    int hours = timeDifference / (60 * 60);
+    timeDifference -= hours * 60 * 60;
+
+    int minutes = timeDifference / 60;
+    int seconds = timeDifference - minutes * 60;
+
+    cout << "Roznica czasu miedzy pierwszym a ostatnim logiem: ";
+    if (days > 0) {
+        cout << days << " dni ";
+    }
+    if (hours > 0) {
+        cout << hours << " godzin ";
+    }
+    if (minutes > 0) {
+        cout << minutes << " minut ";
+    }
+    if (seconds > 0) {
+        cout << seconds << " sekund";
+    }
+    cout << endl;
 }
 int main() {
     string logsDirectory = "D:/logs";
